@@ -1,10 +1,9 @@
 package cargo.api;
 
-import cargo.reponces.SignUpResponse;
-import cargo.requests.RegisterRequest;
+import cargo.dto.reponces.SignResponse;
+import cargo.dto.requests.RegisterWithRole;
 import cargo.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +19,11 @@ public class AdminController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<SignUpResponse> registerUser(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(userService.signUp(request));
+    @PostMapping("/create-user")
+    public SignResponse createUserByAdmin(@RequestBody RegisterWithRole request) {
+        return userService.createUserByAdmin(request);
     }
+
+
+
 }

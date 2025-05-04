@@ -20,4 +20,6 @@ public class Role {
     private String name; // например: "ADMIN", "USER", "MANAGER"
 
     private String description;
+
+    private boolean status;
 }

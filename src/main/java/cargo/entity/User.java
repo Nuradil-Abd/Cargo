@@ -25,8 +25,8 @@ public class User implements UserDetails {
     private Long id;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
     private String email;
-    private String password;
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -49,9 +49,8 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return account != null ? account.getLogin() : null;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -74,6 +73,6 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return account != null ? account.getPassword() : null;
     }
 }

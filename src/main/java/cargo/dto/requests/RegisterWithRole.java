@@ -1,13 +1,11 @@
-package cargo.requests;
+package cargo.dto.requests;
 
-
-import cargo.entity.Role;
 import cargo.validation.annotaion.PasswordValidation;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record RegisterRequest(
+public record RegisterWithRole(
         @NotBlank(message = "Name cannot be empty")
         @Size(min = 3, max = 20, message = "First name must be more than 3 and less than 20 words")
         String firstName,
@@ -19,11 +17,11 @@ public record RegisterRequest(
                 regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com$",
                 message = "Invalid email format. Only end with .com")
         String email,
+        @NotBlank(message = "Login cannot be empty")
+        String login,
 
         @NotBlank(message = "Password cannot be empty")
         @PasswordValidation
         String password,
-        Role role
-) {
-
+        RoleRequest role) {
 }
