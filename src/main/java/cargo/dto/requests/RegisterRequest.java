@@ -1,0 +1,32 @@
+package cargo.dto.requests;
+
+
+
+import cargo.validation.annotaion.PasswordValidation;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record RegisterRequest(
+        @NotBlank(message = "Name cannot be empty")
+        @Size(min = 3, max = 20, message = "First name must be more than 3 and less than 20 words")
+        String firstName,
+        @NotBlank(message = "Last name cannot be empty")
+        @Size(min = 3, max = 20, message = "Last name must be more than 3 and less than 20 words")
+        String lastName,
+        @Size (min  = 12, max  = 13, message = "phone number must be less 12 numbers and start with '+'")
+        String phone,
+        @NotBlank(message = "Email cannot be empty")
+        @Email(
+                regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com$",
+                message = "Invalid email format. Only end with .com")
+        String email,
+        @NotBlank(message = "Login cannot be empty")
+        String login,
+
+        @NotBlank(message = "Password cannot be empty")
+        @PasswordValidation
+        String password
+) {
+
+}
