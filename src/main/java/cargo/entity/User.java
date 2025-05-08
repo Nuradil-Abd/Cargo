@@ -40,6 +40,9 @@ public class User implements UserDetails {
     @OneToOne(fetch = FetchType.LAZY)
     private Transporter transporter;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Client client;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(

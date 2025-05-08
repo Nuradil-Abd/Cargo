@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 @RestController
 @RequiredArgsConstructor
-@Secured("ADMIN")
+@Secured({"ADMIN", "SAFETY MANAGER"})
 public class UserController {
     private final UserService userService;
 
