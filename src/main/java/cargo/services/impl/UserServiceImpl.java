@@ -1,6 +1,6 @@
 package cargo.services.impl;
 import cargo.dto.reponces.GetUserResponse;
-import cargo.dto.requests.UpdateUserRequest;
+import cargo.dto.requests.*;
 import cargo.entity.Account;
 import cargo.entity.User;
 import cargo.entity.Role;
@@ -9,8 +9,6 @@ import cargo.exeptions.NotFoundException;
 import cargo.repositories.AccountRepository;
 import cargo.repositories.RoleRepository;
 import cargo.repositories.UserRepository;
-import cargo.dto.requests.RegisterWithRole;
-import cargo.dto.requests.SignInRequest;
 import cargo.services.JwtService;
 import cargo.services.UserService;
 import jakarta.annotation.PostConstruct;
@@ -21,7 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import cargo.dto.reponces.SignResponse;
-import cargo.dto.requests.RegisterRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService {
             Account adminAccount = Account.builder()
                     .login("admin")
                     .password(passwordEncoder.encode("Admin123"))
-                    .isActive(true)
+                    .active(true)
                     .user(adminUser)
                     .build();
 
@@ -86,7 +84,7 @@ public class UserServiceImpl implements UserService {
         Account account = Account.builder()
                 .login(registerRequest.login())
                 .password(passwordEncoder.encode(registerRequest.password()))
-                .isActive(true)
+                .active(true)
                 .user(user)
                 .build();
 
@@ -157,7 +155,7 @@ public class UserServiceImpl implements UserService {
                 .login(registerRequest.login())
                 .password(passwordEncoder.encode(registerRequest.password()))
                 .user(user)
-                .isActive(true)
+                .active(true)
                 .build();
 
         user.setAccount(account);
@@ -176,8 +174,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<GetUserResponse> getAllUsers(Pageable pageable) {
-
-        return userRepo.findAll(pageable)
+        return userRepo.findAllByRole_NameNot("USER", pageable)
                 .map(user -> GetUserResponse.builder()
                         .firstName(user.getFirstName())
                         .lastName(user.getLastName())

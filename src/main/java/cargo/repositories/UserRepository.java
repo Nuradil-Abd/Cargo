@@ -3,6 +3,8 @@ package cargo.repositories;
 
 import cargo.entity.Role;
 import cargo.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByRole_Name(String admin);
 
     List<User> findAllByRole(Role role);
+    Page<User> findAllByRole_NameNot(String roleName, Pageable pageable);
 }

@@ -19,10 +19,12 @@ public class Account {
     private String login;
     @Column(nullable = false)
     private String password;
-    private boolean isActive;
+    @Column(name = "is_active")
+    private boolean active;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
 
 
 }

@@ -28,6 +28,8 @@ public class RoleServiceImpl  implements RoleService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+
     @Override
     public Page<GetRoleResponse> getAllRoles(Pageable pageable) {
         return roleRepository.findAll(pageable)
