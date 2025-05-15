@@ -2,11 +2,13 @@ package cargo.services.impl;
 import cargo.dto.reponces.GetUserResponse;
 import cargo.dto.requests.*;
 import cargo.entity.Account;
+import cargo.entity.Company;
 import cargo.entity.User;
 import cargo.entity.Role;
 import cargo.exeptions.BadRequestException;
 import cargo.exeptions.NotFoundException;
 import cargo.repositories.AccountRepository;
+import cargo.repositories.CompanyRepository;
 import cargo.repositories.RoleRepository;
 import cargo.repositories.UserRepository;
 import cargo.services.JwtService;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepo;
     private final AccountRepository accountRepo;
+    private final CompanyRepository companyRepo;
 
     @PostConstruct
     public void initDefaultRoles() {
@@ -73,6 +76,7 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepo.findByNameIgnoreCase("USER")
                 .orElseThrow(() -> new BadRequestException("Default role USER not found"));
+
         User user = User.builder()
                 .firstName(registerRequest.firstName())
                 .lastName(registerRequest.lastName())
