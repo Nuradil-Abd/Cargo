@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/clients")
 @RequiredArgsConstructor
+//    @Secured("ADMIN")
 public class ClientController {
 
 
     private final ClientService clientService;
 
-//    @Secured("ADMIN")
+
     @PostMapping
     public ResponseEntity<String> createClient(@RequestBody CreateClientRequest request) {
        clientService.createClient(request);

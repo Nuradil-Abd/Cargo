@@ -4,7 +4,6 @@ import cargo.dto.reponces.GetRoleResponse;
 import cargo.dto.requests.RoleDeactivationRequest;
 import cargo.dto.requests.RoleRequest;
 import cargo.dto.requests.UpdateRoleRequest;
-import cargo.entity.Role;
 import cargo.services.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
